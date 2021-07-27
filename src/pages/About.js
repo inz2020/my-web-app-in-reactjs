@@ -44,6 +44,7 @@ class About extends Component {
     /* Prendre la copie de la liste skills*/
     let listSkills = [...this.state.skills]
     listSkills.splice(index, 1)
+    //Mettre à jour le tableau
     this.setState({ skills: listSkills })
   }
   render() {
@@ -71,6 +72,7 @@ class About extends Component {
         </div>
         <div className="card m-2">
           <div className="card-header"> Skills: {this.state.skillValue}</div>
+
           <div className="card-body">
             <form onSubmit={this.addSkill}>
               <div className="row mb-2">
