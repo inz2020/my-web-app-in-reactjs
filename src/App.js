@@ -12,27 +12,25 @@ function App() {
       <nav className="navbar navbar-expand navbar-brand m-2">
         <ul className="navbar-nav">
           <li>
-            {''}
+            {' '}
             <Link className="nav-link" to={'/home'}>
               Home
             </Link>
           </li>
-
           <li>
-            {''}
-            <Link className="nav-link" to={'/about'}>
-              About
-            </Link>
-          </li>
-
-          <li>
-            {''}
+            {' '}
             <Link className="nav-link" to={'/counter'}>
               Counter
             </Link>
           </li>
           <li>
-            {''}
+            {' '}
+            <Link className="nav-link" to={'/about'}>
+              About
+            </Link>
+          </li>
+          <li>
+            {' '}
             <Link className="nav-link" to={'/gallery'}>
               Gallery
             </Link>
@@ -41,11 +39,11 @@ function App() {
       </nav>
       <div className="container">
         <Switch>
-          <Route path="/" compnent={Home}></Route>
           <Route path="/home" component={Home}></Route>
-          <Route path="/about" component={About}></Route>
           <Route path="/counter" component={Counter}></Route>
+          <Route path="/about" component={About}></Route>
           <Route path="/gallery" component={Gallery}></Route>
+          <Route path="/" component={Home}></Route>
         </Switch>
       </div>
     </Router>
