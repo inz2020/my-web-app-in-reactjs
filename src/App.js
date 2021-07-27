@@ -12,23 +12,27 @@ function App() {
       <nav className="navbar navbar-expand navbar-brand m-2">
         <ul className="navbar-nav">
           <li>
+            {''}
             <Link className="nav-link" to={'/home'}>
               Home
             </Link>
           </li>
 
           <li>
+            {''}
             <Link className="nav-link" to={'/about'}>
               About
             </Link>
           </li>
 
           <li>
+            {''}
             <Link className="nav-link" to={'/counter'}>
               Counter
             </Link>
           </li>
           <li>
+            {''}
             <Link className="nav-link" to={'/gallery'}>
               Gallery
             </Link>
