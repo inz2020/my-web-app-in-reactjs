@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 class About extends Component {
   constructor(props) {
     super(props)
-    this.this.state = {
+    this.state = {
       title: 'my CV',
       contact: {
         name: 'ISSAKA Zeinabou',
