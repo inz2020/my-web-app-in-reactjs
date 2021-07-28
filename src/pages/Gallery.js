@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import HitItem from './../components/HitItem'
 
 class Gallery extends Component {
   /* Page dasn laquelle on va utiliser REST API pour afficher les photos du site Pixayby*/
@@ -69,14 +70,36 @@ class Gallery extends Component {
       {
         currentPage: i,
       },
-      () => this.getHits(),
+
+      () => {
+        console.log(this.state.currentPage)
+        this.getHits()
+      },
     )
-    console.log(this.state.currentPage)
   }
 
   render() {
     return (
       <div>
+        <div>
+          <ul className="nav nav-pills">
+            {this.state.pages.map((v, i) => (
+              <li key={i.id}>
+                {/* i est l'index de la page, commençant par 0 on ajoute 1. La page courante est colorée par bleu */}
+                <button
+                  key={i.id}
+                  className={
+                    this.state.currentPage === i + 1 ? 'btn btn-primary' : 'btn'
+                  }
+                  onClick={() => this.gotoPage(i + 1)}
+                >
+                  {i + 1}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+
         {/* Formulaire de recherche */}
         <form onSubmit={this.search}>
           {/* <div>{this.state.currentKeyword}</div> */}
@@ -97,42 +120,10 @@ class Gallery extends Component {
             </div>
           </div>
         </form>
-        <div className="row m-2 p-2">
+        <div className="row">
           {this.state.hits.map((hit) => (
-            <div key={hit.id} className="col-md-5 ">
-              <div className="card">
-                <div className="card-header">
-                  {hit.tags} | {hit.webformatWidth}*{hit.webformatHeight}
-                </div>
-                <div className="card-body">
-                  <img
-                    className="card-img"
-                    src={hit.webformatURL}
-                    style={{ width: 400, height: 300 }}
-                    alt="pretty"
-                  />
-                </div>
-              </div>
-            </div>
+            <HitItem key={hit.id} hit={hit} />
           ))}
-        </div>
-
-        <div>
-          <ul className="nav nav-pills">
-            {this.state.pages.map((v, i) => (
-              <li key={i.id}>
-                {/* i est l'index de la page, commençant par 0 on ajoute 1. La page courante est colorée par bleu */}
-                <a
-                  className={
-                    this.state.currentPage === i + 1 ? 'btn btn-primary' : 'btn'
-                  }
-                  onClick={() => this.gotoPage(i + 1)}
-                >
-                  {i + 1}
-                </a>
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
     )
