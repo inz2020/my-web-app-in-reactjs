@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import HitItem from './../components/HitItem'
+import SearchHitForm from './../components/SearchHitForm'
 
 class Gallery extends Component {
   /* Page dasn laquelle on va utiliser REST API pour afficher les photos du site Pixayby*/
@@ -24,10 +25,10 @@ class Gallery extends Component {
   }
 
   //Au chargement du composant, on affiche ces objets
-  getHits() {
+  getHits(keyword) {
     let url =
       'https://pixabay.com/api/?key=21188057-c9c4d5022d25eb7c2bf09d819&q=' +
-      this.state.currentKeyword +
+      keyword +
       '&page=' +
       this.state.currentPage +
       '&per_page=' +
@@ -43,6 +44,7 @@ class Gallery extends Component {
             : 1 + res.data.totalHits / this.state.pageSize
 
         this.setState({
+          currentKeyword: keyword,
           hits: res.data.hits,
           totalPages: tp,
           pages: new Array(tp).fill(this.state.currentPage),
@@ -59,9 +61,8 @@ class Gallery extends Component {
     })
   }
   //Fonction de recherche par ville
-  search = (e) => {
-    e.preventDefault()
-    this.getHits()
+  search = (keyword) => {
+    this.getHits(keyword)
   }
   // Une fois que le state change , on fait appel à la fonction getHits. En effet, setState est une fonction asynchrone.
   //Donc, ici getHits n'est appelé que si setState est terminée
@@ -73,7 +74,7 @@ class Gallery extends Component {
 
       () => {
         console.log(this.state.currentPage)
-        this.getHits()
+        this.getHits(this.state.currentKeyword)
       },
     )
   }
@@ -101,26 +102,9 @@ class Gallery extends Component {
         </div>
 
         {/* Formulaire de recherche */}
-        <form onSubmit={this.search}>
-          {/* <div>{this.state.currentKeyword}</div> */}
-          <div className="row m-2 p-2">
-            <div className="col">
-              <input
-                className="form-control"
-                type="text"
-                placeholder=" type the name of the town you want to obtain its pictures"
-                value={this.state.currentKeyword}
-                onChange={this.setKeyword}
-              />
-            </div>
-            <div className="col-auto">
-              <button className="btn btn-success" type="submit">
-                Rechercher
-              </button>
-            </div>
-          </div>
-        </form>
-        <div className="row">
+        <SearchHitForm onSearch={this.search} />
+
+        <div className="row m-2 p-2">
           {this.state.hits.map((hit) => (
             <HitItem key={hit.id} hit={hit} />
           ))}
