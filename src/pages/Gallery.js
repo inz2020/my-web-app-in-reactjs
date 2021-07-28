@@ -15,7 +15,7 @@ class Gallery extends Component {
       currentKeyword: 'rouen',
     }
   }
-  //Une fois que le composanyt est chargé
+  //Une fois que le composant est chargé
   componentDidMount() {
     this.getHits()
   }
@@ -42,11 +42,18 @@ class Gallery extends Component {
       <div>
         <div className="row">
           {this.state.hits.map((hit) => (
-            <div className="col-md-5">
+            <div key={hit.id} className="col-md-5 ">
               <div className="card">
-                <div className="card-header"></div>
+                <div className="card-header">
+                  {hit.tags} | {hit.webformatWidth}*{hit.webformatHeight}
+                </div>
                 <div className="card-body">
-                  <img src={hit.webformatURL} alt="" />
+                  <img
+                    className="card-img"
+                    src={hit.webformatURL}
+                    style={{ width: 400, height: 300 }}
+                    alt="pretty"
+                  />
                 </div>
               </div>
             </div>
