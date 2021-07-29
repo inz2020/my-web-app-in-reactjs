@@ -41,13 +41,13 @@ class Gallery extends Component {
         let tp =
           res.data.totalHits % this.state.pageSize === 0
             ? res.data.totalHits / this.state.pageSize
-            : 1 + res.data.totalHits / this.state.pageSize
+            : 1 + Math.floor(res.data.totalHits / this.state.pageSize)
 
         this.setState({
           currentKeyword: keyword,
           hits: res.data.hits,
           totalPages: tp,
-          pages: new Array(tp).fill(this.state.currentPage),
+          pages: new Array(tp).fill(0),
         })
       })
       .catch((err) => {
@@ -62,7 +62,13 @@ class Gallery extends Component {
   }
   //Fonction de recherche par ville
   search = (keyword) => {
-    this.getHits(keyword)
+    this.setState(
+      {
+        currentPage: 1,
+        pages: [],
+      },
+      () => this.getHits(keyword),
+    )
   }
   // Une fois que le state change , on fait appel à la fonction getHits. En effet, setState est une fonction asynchrone.
   //Donc, ici getHits n'est appelé que si setState est terminée
@@ -85,7 +91,7 @@ class Gallery extends Component {
         <div>
           <ul className="nav nav-pills">
             {this.state.pages.map((v, i) => (
-              <li key={i.id}>
+              <li key={i}>
                 {/* i est l'index de la page, commençant par 0 on ajoute 1. La page courante est colorée par bleu */}
                 <button
                   key={i.id}
@@ -104,9 +110,9 @@ class Gallery extends Component {
         {/* Formulaire de recherche */}
         <SearchHitForm onSearch={this.search} />
 
-        <div className="row m-2 p-2">
+        <div className="row">
           {this.state.hits.map((hit) => (
-            <HitItem key={hit.id} hit={hit} />
+            <HitItem key={hit.id} hit={hit} details={false} />
           ))}
         </div>
       </div>

@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Counter from './pages/Counter'
 import Gallery from './pages/Gallery'
+import HitDetails from './components/HitDetails'
 
 function App() {
   return (
@@ -43,7 +44,8 @@ function App() {
           <Route path="/counter" component={Counter}></Route>
           <Route path="/about" component={About}></Route>
           <Route path="/gallery" component={Gallery}></Route>
-          <Route path="/" component={Home}></Route>
+
+          <Route path="/hitDetails/:id" component={HitDetails}></Route>
         </Switch>
       </div>
     </Router>
